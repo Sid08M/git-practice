@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; background: #eef2f3; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        
+        .card { 
+            background: #ffffff; 
+            padding: 40px; 
+            border-radius: 24px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+            text-align: center; 
+            width: 320px; 
+            border: 2px solid #e0e0e0; 
+        }
+
+        /* The Avatar Styling Formula */
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50px;       /* Gimmick: Setting this to exactly half the width/height creates a perfect circle! */
+            object-fit: cover;         /* Keeps the image aspect ratio clean */
+            border: 3px solid #111111; /* Adds a clean border ring around your avatar */
+            margin-bottom: 16px;       /* Box Model: Pushes your name down */
+        }
+        
+        h1 { color: #111; margin: 0 0 8px 0; font-size: 28px; }
+        p { color: #777; margin: 0 0 24px 0; font-size: 16px; font-style: italic; }
+        
+        button { 
+            background: #111111; 
+            color: white; 
+            border: none; 
+            padding: 14px 20px; 
+            border-radius: 50px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            width: 100%; 
+            transition: 0.2s ease; 
+        }
+        button:hover { background: #444444; transform: scale(1.02); }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <img class="avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Sid Profile Picture">
+        <h1>Sid</h1>
+        <p>Systems & Frontend Developer</p>
+        <button>View Portfolio</button>
+    </div>
+</body>
+</html>
