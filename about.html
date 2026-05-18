@@ -3,11 +3,12 @@
 <head>
     <style>
         body { font-family: Arial, sans-serif; background: #eef2f3; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: #ffffff; padding: 40px; border-radius: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); width: 400px; border: 2px solid #e0e0e0; }
+        .card { background: #ffffff; padding: 40px; border-radius: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); width: 400px; border: 2px solid #e0e0e0; text-align: center; }
         h1 { color: #111; margin-top: 0; }
-        p { color: #444; line-height: 1.6; }
-        .back-link { display: inline-block; margin-top: 20px; color: #007bff; text-decoration: none; font-weight: bold; }
-        .back-link:hover { text-decoration: underline; }
+        p { color: #444; line-height: 1.6; text-align: left; }
+        .nav-links { display: flex; justify-content: space-between; margin-top: 30px; }
+        .link { color: #007bff; text-decoration: none; font-weight: bold; }
+        .link:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -15,7 +16,10 @@
         <h1>About Me</h1>
         <p>I am a university student specializing in Computer Science. I have a background in C programming and low-level data structures, and I am currently expanding my skill tree into modern frontend application design and Git systems engineering.</p>
         
-        <a class="back-link" href="./index.html">&larr; Back to Profile</a>
+        <div class="nav-links">
+            <a class="link" href="./index.html">&larr; Profile</a>
+            <a class="link" href="./projects.html">View Projects &rarr;</a>
+        </div>
     </div>
 </body>
 </html>
