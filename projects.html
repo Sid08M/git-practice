@@ -1,50 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        body { font-family: Arial, sans-serif; background: #eef2f3; margin: 0; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
-        h1 { color: #111; margin-bottom: 8px; }
-        .subtitle { color: #666; margin-bottom: 40px; font-style: italic; }
-        
-        .project-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
-            justify-content: center;
-            max-width: 1000px;
-            width: 100%;
-        }
-
-        .project-card {
-            background: #ffffff;
-            padding: 24px;
-            border-radius: 16px;
-            border: 2px solid #e0e0e0;
-            width: 280px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .project-card h3 { margin: 0 0 10px 0; color: #111; font-size: 20px; text-transform: capitalize; }
-        .project-card p { margin: 0 0 20px 0; color: #666; font-size: 14px; line-height: 1.5; }
-        
-        .repo-link { display: inline-block; color: #007bff; text-decoration: none; font-weight: bold; font-size: 14px; }
-        .repo-link:hover { text-decoration: underline; }
-        
-        .nav-link { display: inline-block; margin-top: 40px; color: #111; text-decoration: none; font-weight: bold; }
-        .nav-link:hover { text-decoration: underline; }
-        
-        /* Loading text style */
-        #loading { color: #666; font-size: 18px; }
-    </style>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+    <button class="theme-toggle" id="theme-btn">🌙 Dark Mode</button>
+
     <h1>My Live GitHub Projects</h1>
-    <p class="subtitle">Fetched dynamically from my GitHub profile via API</p>
+    <p style="color: var(--sub-text); margin-bottom: 40px; font-style: italic;">Fetched dynamically from my GitHub profile via API</p>
 
-    <div id="loading">Loading repositories from GitHub...</div>
-
+    <div id="loading" style="color: var(--sub-text); font-size: 18px;">Loading repositories from GitHub...</div>
     <div class="project-grid" id="repo-container"></div>
 
     <a class="nav-link" href="./index.html">&larr; Back to Home</a>
@@ -53,39 +18,26 @@
         const container = document.getElementById("repo-container");
         const loadingText = document.getElementById("loading");
 
-        // Step 1: Call the GitHub API targeting your specific username
         fetch("https://api.github.com/users/Sid08M/repos")
             .then(response => response.json())
             .then(repos => {
-                // Remove the loading message once data arrives
                 loadingText.style.display = "none";
-
-                // Step 2: Loop through the array of repositories (just like a loop in C)
                 repos.forEach(repo => {
-                    // Filter out fork repositories so it only shows projects YOU created
                     if (!repo.fork) {
-                        
-                        // Step 3: Construct a modern UI card dynamically using the repo data
-                        // If a repo has no description, we use a fallback sentence
                         const cardHtml = `
                             <div class="project-card">
                                 <div>
                                     <h3>${repo.name.replace(/-/g, " ")}</h3>
-                                    <p>${repo.description ? repo.description : "No description provided yet. Click link to view source code."}</p>
+                                    <p>${repo.description ? repo.description : "No description provided yet."}</p>
                                 </div>
                                 <a class="repo-link" href="${repo.html_url}" target="_blank">View Source Code &rarr;</a>
                             </div>
                         `;
-                        
-                        // Step 4: Inject the newly constructed card layout directly into the page container
                         container.innerHTML += cardHtml;
                     }
                 });
-            })
-            .catch(error => {
-                loadingText.innerText = "Error loading repositories from GitHub.";
-                console.error(error);
             });
     </script>
+    <script src="./theme.js"></script>
 </body>
 </html>
