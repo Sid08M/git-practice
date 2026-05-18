@@ -2,20 +2,85 @@
 <html>
 <head>
     <style>
-        body { font-family: Arial, sans-serif; background: #eef2f3; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: #ffffff; padding: 40px; border-radius: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center; width: 320px; border: 2px solid #e0e0e0; }
-        .avatar { width: 100px; height: 100px; border-radius: 50px; object-fit: cover; border: 3px solid #111111; margin-bottom: 16px; }
-        h1 { color: #111; margin: 0 0 8px 0; font-size: 28px; }
-        p { color: #777; margin: 0 0 24px 0; font-size: 16px; font-style: italic; }
-        button { background: #111111; color: white; border: none; padding: 14px 20px; border-radius: 50px; font-weight: bold; cursor: pointer; width: 100%; transition: 0.2s ease; }
-        button:hover { background: #444444; transform: scale(1.02); }
-        @media (max-width: 480px) {
-            .card { width: 80%; padding: 24px; border-radius: 16px; }
-            h1 { font-size: 22px; }
+        /* =======================================================
+           CSS DYNAMIC VARIABLES DEFINITION
+           ======================================================= */
+        :root {
+            --bg-color: #eef2f3;
+            --card-bg: #ffffff;
+            --text-color: #111111;
+            --sub-text: #777777;
+            --border-color: #e0e0e0;
+            --btn-bg: #111111;
+            --btn-text: #ffffff;
+        }
+
+        /* The Dark Mode Variant State */
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #f0f0f0;
+            --sub-text: #aaaaaa;
+            --border-color: #333333;
+            --btn-bg: #ffffff;
+            --btn-text: #111111;
+        }
+
+        /* Applying the variables to the layout components */
+        body { 
+            font-family: Arial, sans-serif; 
+            background: var(--bg-color); 
+            color: var(--text-color);
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0;
+            transition: background 0.3s ease, color 0.3s ease; /* Smooth fade when shifting themes */
+        }
+        
+        .card { 
+            background: var(--card-bg); 
+            padding: 40px; 
+            border-radius: 24px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+            text-align: center; 
+            width: 320px; 
+            border: 2px solid var(--border-color); 
+            transition: background 0.3s ease, border 0.3s ease;
+        }
+
+        .avatar { width: 100px; height: 100px; border-radius: 50px; object-fit: cover; border: 3px solid var(--text-color); margin-bottom: 16px; }
+        h1 { color: var(--text-color); margin: 0 0 8px 0; font-size: 28px; }
+        p { color: var(--sub-text); margin: 0 0 24px 0; font-size: 16px; font-style: italic; }
+        
+        button { 
+            background: var(--btn-bg); 
+            color: var(--btn-text); 
+            border: none; 
+            padding: 14px 20px; 
+            border-radius: 50px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            width: 100%; 
+            transition: 0.2s ease; 
+        }
+        button:hover { opacity: 0.8; transform: scale(1.02); }
+
+        /* Floating Theme Toggle Control Button */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: auto;
+            padding: 10px 16px;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
+    <button class="theme-toggle" id="theme-btn">🌙 Dark Mode</button>
+
     <div class="card">
         <img class="avatar" src="./me.jpg" alt="Sid Profile Picture">
         <h1>Sid</h1>
@@ -24,10 +89,30 @@
     </div>
 
     <script>
-        const button = document.getElementById("portfolio-btn");
-        button.addEventListener("click", function() {
-            // THE GIMMICK: Changes the window URL path to teleport the user to your new page
+        // Router Navigation Logic
+        const portfolioBtn = document.getElementById("portfolio-btn");
+        portfolioBtn.addEventListener("click", function() {
             window.location.href = "./about.html";
+        });
+
+        // ==========================================
+        // THEME TOGGLE MUTATION LOGIC
+        // ==========================================
+        const themeBtn = document.getElementById("theme-btn");
+        
+        themeBtn.addEventListener("click", function() {
+            // Check what state the document structure currently is in
+            const currentTheme = document.documentElement.getAttribute("data-theme");
+
+            if (currentTheme === "dark") {
+                // If it is dark, remove the state label to fall back to default light variables
+                document.documentElement.removeAttribute("data-theme");
+                themeBtn.innerText = "🌙 Dark Mode";
+            } else {
+                // If it is light, inject the [data-theme="dark"] attribute token into the root HTML node
+                document.documentElement.setAttribute("data-theme", "dark");
+                themeBtn.innerText = "☀️ Light Mode";
+            }
         });
     </script>
 </body>
