@@ -1,1 +1,1 @@
-hi wassup
+this is readme text file
